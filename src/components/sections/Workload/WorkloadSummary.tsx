@@ -2,14 +2,16 @@ import { MONTHS } from "@/lib/workload";
 
 type Props = {
   totals: Record<string, number>;
+  name?: string;
+  typeName?: string;
 };
 
-export function WorkloadSummary({ totals }: Props) {
+export function WorkloadSummary({ totals, name, typeName }: Props) {
   return (
     <section className="mb-4">
-      <h1 className="text-lg font-semibold">BIANCHINI Thierry</h1>
-      <p className="text-sm text-gray-500 mb-4">Workload</p>
-      <div className="grid grid-cols-[100px_repeat(1,1fr)]">
+      <h1 className="text-lg font-semibold">{name ?? 'N/A'}</h1>
+      <p className="text-sm text-gray-500 mb-4">{typeName ?? 'Workload' }</p>
+      <div className="grid md:grid-cols-[100px_repeat(1,1fr)]">
         <div></div>
         <div className="flex gap-1 flex-wrap">
           {MONTHS.map((month) => {

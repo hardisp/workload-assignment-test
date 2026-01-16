@@ -19,38 +19,37 @@ export function AssignmentRow({ totals }: { totals: Record<string, number> }) {
         disabled,
       });
     },
-    [dispatch]
+    [assignment, dispatch]
   );
 
   const handleOnChange = useCallback(
-    (month: string, value: string, disabled: boolean) => {
+    (month: string, value: string) => {
       const error = validateWorkloadInput(value);
+
+      dispatch({
+        type: "UPDATE_MONTH_FIELDVALUE",
+        month: month as keyof typeof assignment.workload,
+        fieldValue: value,
+      });
 
       if (error) {
         toast.error(error);
         return;
       }
-      if (disabled) {
-        dispatch({
-          type: "TOGGLE_MONTH_DISABLED",
-          month: month as keyof typeof assignment.workload,
-          disabled: true,
-        });
-      } else {
-        dispatch({
-          type: "UPDATE_MONTH_VALUE",
-          month: month as keyof typeof assignment.workload,
-          value: value,
-        });
-      }
+
+      dispatch({
+        type: "UPDATE_MONTH_VALUE",
+        month: month as keyof typeof assignment.workload,
+        value: Number(value),
+      });
     },
-    [dispatch, assignment.workload]
+    [dispatch, assignment]
   );
 
   return (
-    <div className="grid grid-cols-[100px_repeat(1,1fr)] gap-2 items-center">
+    <div className="grid md:grid-cols-[100px_repeat(1,1fr)] gap-2 items-center">
       {/* Label */}
-      <div className="flex flex-col items-end justify-start text-right">
+      <div className="flex flex-col md:items-end justify-start md:text-right">
         <div className="text-sm text-gray-400">Total</div>
         <div className="text-sm gap-1 flex font-normal text-left self-start relative before:content-[''] before:w-2 before:h-5 before:rounded-lg before:bg-blue-500 before:block">
           {assignment.label}
@@ -58,7 +57,7 @@ export function AssignmentRow({ totals }: { totals: Record<string, number> }) {
       </div>
 
       {/* Month Inputs */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {MONTHS.map((month) => {
           const cell = assignment.workload[month];
 
@@ -81,11 +80,11 @@ export function AssignmentRow({ totals }: { totals: Record<string, number> }) {
                   value={cell.fieldValue}
                   disabled={cell.disabled}
                   onChange={(e) => {
-                    handleOnChange(month, e.target.value, cell.disabled);
+                    handleOnChange(month, e.target.value);
                   }}
                   className="w-8 px-1 py-0 text-sm input-no-border rounded-md  text-center font-medium"
                 />
-                <AppTooltip content="Mark as fictive"> 
+                <AppTooltip content="Mark as fictive">
                   <div className="">
                     <Checkbox
                       checked={cell.disabled}

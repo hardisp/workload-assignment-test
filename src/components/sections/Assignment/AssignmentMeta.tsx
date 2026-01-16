@@ -48,11 +48,11 @@ export function AssignmentMeta() {
   );
 
   return (
-    <div className="mt-6 grid grid-cols-[100px_repeat(1,1fr)] gap-6">
+    <div className="mt-6 grid md:grid-cols-[100px_repeat(1,1fr)] gap-2">
       <div></div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 md:flex-row flex-col">
         <div className="px-2 bg-gray-200 text-gray-500 font-medium rounded-md flex items-center">
-          <div className="w-25 flex justify-between items-center">
+          <div className="md:w-25 w-full flex justify-between items-center">
             <Select.Root
               onValueChange={(s) => {
                 setInputs((prev) => ({ ...prev, actingAs: s }));

@@ -18,9 +18,14 @@ export type WorkloadState = {
 
 export type WorkloadAction =
   | {
+      type: "UPDATE_MONTH_FIELDVALUE";
+      month: Month;
+      fieldValue: number | string;
+    }
+  | {
       type: "UPDATE_MONTH_VALUE";
       month: Month;
-      value: number | string;
+      value: number;
     }
   | {
       type: "TOGGLE_MONTH_DISABLED";

@@ -8,14 +8,18 @@ export const workloadReducer = produce(
         const cell = state.assignment.workload[action.month];
         const value = Number(action.value);
 
-        cell.value = Number.isNaN(value) ? 0 : value;
-        cell.fieldValue = action.value;
+        cell.value = value;
+        return;
+      }
+
+      case "UPDATE_MONTH_FIELDVALUE": {
+        const cell = state.assignment.workload[action.month];
+        cell.fieldValue = action.fieldValue;
         return;
       }
 
       case "TOGGLE_MONTH_DISABLED": {
-        state.assignment.workload[action.month].disabled =
-          action.disabled;
+        state.assignment.workload[action.month].disabled = action.disabled;
         return;
       }
     }

@@ -7,7 +7,7 @@ type ContextValue = {
     setActiveTab: (tab: string) => void; 
 };
 
-const ThemeContext = createContext<ContextValue | null>(null);
+const TabContext = createContext<ContextValue | null>(null);
 
 export function Tabs({
   children,
@@ -17,14 +17,14 @@ export function Tabs({
   const [activeTab, setActiveTab] = useState("tab1");
 
   return (
-    <ThemeContext.Provider value={{   activeTab, setActiveTab }}>
+    <TabContext.Provider value={{   activeTab, setActiveTab }}>
       {children}
-    </ThemeContext.Provider>
+    </TabContext.Provider>
   );
 }
 
 export function useTab() {
-  const ctx = useContext(ThemeContext);
+  const ctx = useContext(TabContext);
   if (!ctx) {
     throw new Error(
       "useTab must be used inside Tabs"
