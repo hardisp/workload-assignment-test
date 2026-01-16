@@ -1,44 +1,23 @@
+import { produce } from "immer";
 import { WorkloadAction, WorkloadState } from "./workload.types";
 
-export function workloadReducer(
-  state: WorkloadState,
-  action: WorkloadAction
-): WorkloadState {
-  switch (action.type) {
-    case "UPDATE_MONTH_VALUE": {
-      return {
-        ...state,
-        assignment: {
-          ...state.assignment,
-          workload: {
-            ...state.assignment.workload,
-            [action.month]: {
-              ...state.assignment.workload[action.month],
-              value: isNaN(Number(action.value)) ? 0 : Number(action.value),
-              fieldValue: action.value,
-            },
-          },
-        },
-      };
-    }
+export const workloadReducer = produce(
+  (state: WorkloadState, action: WorkloadAction) => {
+    switch (action.type) {
+      case "UPDATE_MONTH_VALUE": {
+        const cell = state.assignment.workload[action.month];
+        const value = Number(action.value);
 
-    case "TOGGLE_MONTH_DISABLED": {
-      return {
-        ...state,
-        assignment: {
-          ...state.assignment,
-          workload: {
-            ...state.assignment.workload,
-            [action.month]: {
-              ...state.assignment.workload[action.month],
-              disabled: action.disabled,
-            },
-          },
-        },
-      };
-    }
+        cell.value = Number.isNaN(value) ? 0 : value;
+        cell.fieldValue = action.value;
+        return;
+      }
 
-    default:
-      return state;
+      case "TOGGLE_MONTH_DISABLED": {
+        state.assignment.workload[action.month].disabled =
+          action.disabled;
+        return;
+      }
+    }
   }
-}
+);

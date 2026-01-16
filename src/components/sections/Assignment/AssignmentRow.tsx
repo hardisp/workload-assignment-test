@@ -4,8 +4,8 @@ import { useCallback } from "react";
 import { toast } from "sonner";
 import { useWorkload } from "@/context/workload/WorkloadContext";
 import { twMerge } from "tailwind-merge";
-import { AppTooltip } from "@/components/ui/Tooltip";
 import { Checkbox } from "@/components/ui/Forms";
+import { AppTooltip } from "@/components/ui/Systems";
 
 export function AssignmentRow({ totals }: { totals: Record<string, number> }) {
   const { state, dispatch } = useWorkload();

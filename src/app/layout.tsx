@@ -1,5 +1,5 @@
-import "./globals.css";
-import { TopNav } from "@/components/layout/Topnav";
+import { TopNav } from "@/components/layout";
+import "./globals.css"; 
 import { ThemeProvider } from "@/context/theme/ThemeContext";
 import { WorkloadProvider } from "@/context/workload/WorkloadContext";
 import { Toaster } from "sonner";
@@ -15,7 +15,7 @@ export default function RootLayout({
         <ThemeProvider>
           <WorkloadProvider>
             <TopNav />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 bg-gray-200">{children}</main>
             <Toaster
               position="top-center"
               toastOptions={{
