@@ -20,7 +20,22 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+ @apply bg-gray-50 text-gray-900 antialiased;
 }
+
+input {
+  @apply focus:outline-none;
+}
+
+.label-success {
+  @apply text-gray-700 bg-gray-200 rounded-lg overflow-hidden;
+}
+
+.label-warn {
+  @apply text-orange-500 bg-orange-200 rounded-lg overflow-hidden;
+}
+
+.input-no-border {
+  @apply border-0 focus:ring-0 focus:border-0;
+}
+
