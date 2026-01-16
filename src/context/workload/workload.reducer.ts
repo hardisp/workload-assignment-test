@@ -8,7 +8,7 @@ export const workloadReducer = produce(
         const cell = state.assignment.workload[action.month];
         const value = Number(action.value);
 
-        cell.value = value;
+        cell.value = Number.isNaN(value) ? 0 : value;
         return;
       }
 

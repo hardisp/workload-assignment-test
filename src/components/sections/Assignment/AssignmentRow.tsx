@@ -34,6 +34,12 @@ export function AssignmentRow({ totals }: { totals: Record<string, number> }) {
 
       if (error) {
         toast.error(error);
+        // Prevent invalid value from being set in state
+        dispatch({
+          type: "UPDATE_MONTH_VALUE",
+          month: month as keyof typeof assignment.workload,
+          value: 0,
+        });
         return;
       }
 
